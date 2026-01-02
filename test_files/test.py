@@ -2,7 +2,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import torch
 import torch.nn.functional as F
-from pretty_confusion_matrix import pp_matrix
+try:
+    from pretty_confusion_matrix import pp_matrix
+except ModuleNotFoundError:
+    pp_matrix = None
 from sklearn import metrics
 from sklearn.metrics import PrecisionRecallDisplay
 from sklearn.metrics import RocCurveDisplay
@@ -112,7 +115,8 @@ def draw_conMatrix(trues, y_pred, n_test, save_path, n_classes, categories):
                          columns=categories)
 
     cmap = 'OrRd'
-    pp_matrix(df_cm, cmap=cmap)
+    if pp_matrix is not None:
+        pp_matrix(df_cm, cmap=cmap)
     plt.savefig('{}/conf_mtrx_{}.png'.format(save_path, str(n_test)))
 
     cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix=conf_matrix,
