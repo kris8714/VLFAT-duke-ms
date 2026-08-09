@@ -1,24 +1,22 @@
-# Add this line to tell the model where the weights are
-check_point_path: '/content/drive/MyDrive/Duke_VLFAT_Weights.pth'
-
-dataset_info:
-  dataset_name: 'MS'
-  annotation_path_test: 'data/jhu_processed_data/test.csv'
-  loader_type: 'random_middle' 
-  shuffle: false
-  num_workers: 2
-
-train_config:
-  train: false 
-  batch_size: 1
-  allow_size_mismatch: true 
-  pretrain: false
-  resume: false
-  optimizer: 'adam'
-
-model_config:
-  model_type: 'ViT_VaR'
-  image_size: 224
-  num_frames: 49 
-  channels: 1
-  weighted: false
+- check_point_path: '/content/drive/MyDrive/Duke_VLFAT_Weights.pth'
+  dataset_info:
+    dataset_name: 'MS'
+    annotation_path_test: 'data/jhu_processed_data/test.csv'
+    loader_type: 'random_middle' 
+    shuffle: false
+    num_workers: 2
+  train_config:
+    train: false 
+    batch_size: 1
+    allow_size_mismatch: true 
+    pretrain: false
+    resume: false
+    optimizer: 'adam'
+  model_inputs:
+    model_type: 'ViT_VaR'
+    image_size: 224
+    num_frames: 49 
+    channels: 1
+    weighted: false
+  log_info:
+    log_dir: 'logs'
