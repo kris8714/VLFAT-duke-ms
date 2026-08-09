@@ -4,16 +4,10 @@
     num_frames: 49 
     channels: 1
     weighted: false
-  train_config:
-    train: false 
-    batch_size: 1
-    allow_size_mismatch: true 
-    pretrain: false
-    resume: false
-    optimizer: 'adam'
   check_point_path: '/content/drive/MyDrive/Duke_VLFAT_Weights.pth'
   log_info:
     log_dir: 'logs'
+
 - dataset:
     dataset_name: 'MS'
     annotation_path_test: 'data/jhu_processed_data/test.csv'
@@ -22,3 +16,11 @@
     loader_type: 'random_middle' 
     shuffle: false
     num_workers: 2
+
+- train_config:
+    train: false 
+    batch_size: 1
+    allow_size_mismatch: true 
+    pretrain: false
+    resume: false
+    optimizer: 'adam'
