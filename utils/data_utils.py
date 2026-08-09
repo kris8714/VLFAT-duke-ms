@@ -4,7 +4,7 @@ from torch.utils.data import DataLoader
 
 from data.channel_wise_aug import available_augmentations
 from data.data_loader_multi_class import Multiclass_ds
-from data.data_loader_binary import OLIVES_ds, Duke_ds
+from data.data_loader_binary import OLIVES_ds, Duke_ds, MS_ds
 
 
 def create_dataloaders(dataset_info, train_config, model_config, model_layout, logger, where):
@@ -41,6 +41,16 @@ def create_dataloaders(dataset_info, train_config, model_config, model_layout, l
                                annotation_path=where + '/' + dataset_info['annotation_path_test'],
                                image_size=model_config['image_size'],
                                categories=["AMD", "Normal"],
+                               model_type=model_config['model_type'],
+                               gray_scale=gray_scale, n_frames=model_config['num_frames'],
+                               logger=logger, where=where)
+        elif dataset_info['dataset_name'] == 'MS':
+            logger.info('[INFO] load test set from {}...'.format(dataset_info['annotation_path_test']))
+            logger.info('[INFO] load test set ...')
+            test_set = MS_ds(loader_type=dataset_info['loader_type'],
+                               annotation_path=where + '/' + dataset_info['annotation_path_test'],
+                               image_size=model_config['image_size'],
+                               categories=["MS", "Normal"],
                                model_type=model_config['model_type'],
                                gray_scale=gray_scale, n_frames=model_config['num_frames'],
                                logger=logger, where=where)
@@ -119,7 +129,24 @@ def create_dataloaders(dataset_info, train_config, model_config, model_layout, l
                               model_type=model_config['model_type'],
                               gray_scale=gray_scale, n_frames=model_config['num_frames'],
                               logger=logger, where=where)
-
+        elif dataset_info['dataset_name'] == 'MS':
+            logger.info('Load MS set for training ...')
+            train_set = MS_ds(loader_type=dataset_info['loader_type'],
+                                annotation_path=where + '/' + dataset_info['annotation_path_train'],
+                                augment=True,
+                                augmentation_list=available_augmentations,
+                                image_size=model_config['image_size'],
+                                categories=["MS", "Normal"],
+                                model_type=model_config['model_type'],
+                                gray_scale=gray_scale, n_frames=model_config['num_frames'],
+                                logger=logger, where=where)
+            val_set = MS_ds(loader_type=dataset_info['loader_type'],
+                              annotation_path=where + '/' + dataset_info['annotation_path_val'],
+                              image_size=model_config['image_size'],
+                              categories=["MS", "Normal"],
+                              model_type=model_config['model_type'],
+                              gray_scale=gray_scale, n_frames=model_config['num_frames'],
+                              logger=logger, where=where)
         logger.info('[INFO] number of samples in train set: {}'.format(train_set.__len__()))
         logger.info('[INFO] number of samples in val set: {}'.format(val_set.__len__()))
 
