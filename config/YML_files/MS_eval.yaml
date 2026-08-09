@@ -1,0 +1,23 @@
+dataset_info:
+  dataset_name: 'MS'
+  annotation_path_test: 'data/jhu_processed_data/test.csv'
+  annotation_path_train: 'data/jhu_processed_data/train.csv'
+  annotation_path_val: 'data/jhu_processed_data/val.csv'
+  loader_type: 'random_middle' # Or 'random', 'fixed', matching whatever Duke used
+  shuffle: false
+  num_workers: 2
+
+train_config:
+  train: false # This triggers the evaluation check!
+  batch_size: 1
+  allow_size_mismatch: true # Important for cross-dataset testing
+  pretrain: false
+  resume: false
+  optimizer: 'adam'
+
+model_config:
+  model_type: 'ViT_VaR'
+  image_size: 224
+  num_frames: 49 # Based on your MS dataset extraction (49 slices)
+  channels: 1
+  weighted: false
