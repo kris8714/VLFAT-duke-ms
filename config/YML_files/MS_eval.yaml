@@ -1,10 +1,9 @@
-- check_point_path: '/content/drive/MyDrive/Duke_VLFAT_Weights.pth'
-  dataset_info:
-    dataset_name: 'MS'
-    annotation_path_test: 'data/jhu_processed_data/test.csv'
-    loader_type: 'random_middle' 
-    shuffle: false
-    num_workers: 2
+- model_inputs:
+    model_type: 'ViT_VaR'
+    image_size: 224
+    num_frames: 49 
+    channels: 1
+    weighted: false
   train_config:
     train: false 
     batch_size: 1
@@ -12,11 +11,14 @@
     pretrain: false
     resume: false
     optimizer: 'adam'
-  model_inputs:
-    model_type: 'ViT_VaR'
-    image_size: 224
-    num_frames: 49 
-    channels: 1
-    weighted: false
+  check_point_path: '/content/drive/MyDrive/Duke_VLFAT_Weights.pth'
   log_info:
     log_dir: 'logs'
+- dataset:
+    dataset_name: 'MS'
+    annotation_path_test: 'data/jhu_processed_data/test.csv'
+    annotation_path_train: 'data/jhu_processed_data/train.csv'
+    annotation_path_val: 'data/jhu_processed_data/val.csv'
+    loader_type: 'random_middle' 
+    shuffle: false
+    num_workers: 2
