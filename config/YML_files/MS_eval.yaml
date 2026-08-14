@@ -2,7 +2,7 @@
     model_type: 'ViT_VaR'
     num_classes: 2
     image_size: 224
-    num_frames: 49
+    num_frames: 15
     channels: 1
     weighted: false
     num_test: 10
