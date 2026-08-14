@@ -25,3 +25,5 @@
 
 - log:
     log_dir: 'logs'
+
+- where: 'colab'
