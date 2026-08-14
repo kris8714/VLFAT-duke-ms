@@ -15,9 +15,9 @@
 
 - dataset:
     dataset_name: 'MS'
-    annotation_path_train: '/content/VLFAT-duke-ms/data/jhu_processed_data/train.csv'
-    annotation_path_test: '/content/VLFAT-duke-ms/data/jhu_processed_data/test.csv'
-    annotation_path_val: '/content/VLFAT-duke-ms/data/jhu_processed_data/val.csv'
+    annotation_path_train: 'content/VLFAT-duke-ms/data/jhu_processed_data/jhu_processed_data/train.csv'
+    annotation_path_test: 'content/VLFAT-duke-ms/data/jhu_processed_data/jhu_processed_data/test.csv'
+    annotation_path_val: 'content/VLFAT-duke-ms/data/jhu_processed_data/jhu_processed_data/val.csv'
     shuffle: false
     num_workers: 2
     loader_type: 'random_middle'
