@@ -39,7 +39,6 @@ def create_scheduler(optimizer, train_config, cycle_momentum, logger, len_train_
                                                                    T_0=train_config['warmup_epochs'],
                                                                    T_mult=train_config['T_mult'],
                                                                    eta_min=train_config['eta_min'],
-                                                                   last_epoch=train_config['last_epoch'],
-                                                                   verbose=False)
+                                                                   last_epoch=train_config['last_epoch'])
 
     return scheduler
