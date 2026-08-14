@@ -26,7 +26,7 @@
     train: false
     pretrain: false
     resume: false
-    allow_size_mismatch: true
+    allow_size_mismatch: false
     load_path: '/content/drive/MyDrive'
     checkpoint: 'Duke_VLFAT_Weights_Fixed.pth'
     num_epochs: 1
