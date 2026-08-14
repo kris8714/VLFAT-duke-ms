@@ -27,7 +27,7 @@
     pretrain: false
     resume: false
     allow_size_mismatch: true
-    load_path: '/content/drive/MyDrive/'
+    load_path: '/content/drive/MyDrive'
     checkpoint: 'Duke_VLFAT_Weights.pth'
     num_epochs: 1
     batch_size: 1
@@ -56,4 +56,4 @@
 - log:
     save_path: 'logs'
 
-- where: 'colab'
+- where: ''
