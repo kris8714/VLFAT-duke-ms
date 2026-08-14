@@ -28,7 +28,7 @@
     resume: false
     allow_size_mismatch: true
     load_path: '/content/drive/MyDrive'
-    checkpoint: 'Duke_VLFAT_Weights.pth'
+    checkpoint: 'Duke_VLFAT_Weights_Fixed.pth'
     num_epochs: 1
     batch_size: 1
     use_gpu: true
