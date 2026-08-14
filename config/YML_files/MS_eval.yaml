@@ -22,6 +22,7 @@
     pretrain: false
     resume: false
     optimizer: 'adam'
+    use_gpu: true
 
 - log:
     log_dir: 'logs'
