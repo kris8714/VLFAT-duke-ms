@@ -5,8 +5,6 @@
     channels: 1
     weighted: false
   check_point_path: '/content/drive/MyDrive/Duke_VLFAT_Weights.pth'
-  log_info:
-    log_dir: 'logs'
 
 - dataset:
     dataset_name: 'MS'
@@ -24,3 +22,6 @@
     pretrain: false
     resume: false
     optimizer: 'adam'
+
+- log:
+    log_dir: 'logs'
