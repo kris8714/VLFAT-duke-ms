@@ -29,8 +29,8 @@
     allow_size_mismatch: false
     load_path: '/content/drive/MyDrive/'
     checkpoint: 'Duke_VLFAT_Weights_Fixed.pth'
-    num_epochs: 2  # <--- Short run for testing
-    batch_size: 2  # <--- Small batch for Colab's free GPU
+    num_epochs: 50  
+    batch_size: 8
     use_gpu: true
     init_lr: 6.0e-8
     max_lr: 0.003
