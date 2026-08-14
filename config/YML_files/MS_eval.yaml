@@ -27,8 +27,8 @@
     pretrain: false
     resume: false
     allow_size_mismatch: false
-    load_path: '/content/drive/MyDrive'
-    checkpoint: 'Duke_VLFAT_Weights_Fixed.pth'
+    load_path: '/logs/ViT_VaR_224_MS/20260814-201404'
+    checkpoint: 'current_val_acc_0.5_ckpt.pth.tar'
     num_epochs: 1
     batch_size: 1
     use_gpu: true
