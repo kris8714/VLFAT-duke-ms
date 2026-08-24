@@ -2,6 +2,7 @@
 import inspect
 import os
 import sys
+import wandb
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -31,6 +32,12 @@ def train_val(train_config,
               init_epoch=0,
               device='cpu',
               VLFAT=False):
+
+    wandb.init(
+        project="VLFAT-MS",
+        name=f"Finetune_LR{train_config['init_lr']}_BS{train_config['batch_size']}",
+        config=train_config
+    )
 
     writer = SummaryWriter(log_dir=ckpt_saver.save_dir)
     best_acc = 0.0
@@ -98,7 +105,7 @@ def train_val(train_config,
         logger.info('[INFO] This training epoch took {} sec'.format(time.time() - epoch_time))
         val_time = time.time()
         'accuracy, loss, balanced_acc'
-        _, val_loss, val_acc = test(val_loader, model, loss_fn, logger, phase='val')
+        val_loss, val_acc, b_acc, precision, recall = test(val_loader, model, loss_fn, logger, phase='val')
 
         logger.info('[INFO] This validation epoch took {} sec'.format(time.time() - val_time))
 
@@ -144,6 +151,19 @@ def train_val(train_config,
         epochs_acc_val.append(val_acc)
         epochs_loss_val.append(val_loss)
 
+        # Get current learning rate from the optimizer
+        current_lr = optimizer.param_groups[0]['lr']
+        
+        wandb.log({
+            "epoch": epoch,
+            "train/loss": epoch_loss,       # Match to their train loss variable
+            "train/accuracy": epoch_acc,    # Match to their train acc variable
+            "train/learning_rate": current_lr,
+            "val/loss": val_loss,           # Match to their val loss variable
+            "val/accuracy": val_acc,        # Match to their val acc variable
+            "val/balanced_accuracy": b_acc, # Match to their balanced accuracy variable
+        })
+        
         if VLFAT:
             """part for variable length"""
             var_length = [5, 10, 15, 20, 25]
