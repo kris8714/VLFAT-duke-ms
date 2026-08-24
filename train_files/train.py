@@ -35,7 +35,7 @@ def train_val(train_config,
 
     wandb.init(
         project="VLFAT-MS",
-        name=f"Finetune_LR{train_config['init_lr']}_BS{train_config['batch_size']}",
+        name="LinearProbe_LR0.001_Aug_ON",   # <--- Change this line!
         config=train_config
     )
 
