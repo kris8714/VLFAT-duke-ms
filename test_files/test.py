@@ -38,7 +38,7 @@ def test(loader, model, loss_fn, logger, phase, device='cuda'):
     'y_true, y_pred'
     b_acc = balanced_accuracy_score(y_true=trues, y_pred=y_pred)
     loss = running_loss / len(loader.dataset)
-    logger.info('[INFO] {} acc, balanced accuracy,  and loss: {}, {}, {}'.format(phase, accuracy, balanced_acc, loss))
+    logger.info('[INFO] {} acc, balanced accuracy,  and loss: {}, {}, {}'.format(phase, accuracy, b_acc, loss))
     precision = precision_score(trues, y_pred, average='macro', zero_division=0)
     recall = recall_score(trues, y_pred, average='macro', zero_division=0)
     
