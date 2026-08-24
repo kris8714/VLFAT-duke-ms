@@ -9,10 +9,9 @@ except ModuleNotFoundError:
 from sklearn import metrics
 from sklearn.metrics import PrecisionRecallDisplay
 from sklearn.metrics import RocCurveDisplay
-from sklearn.metrics import balanced_accuracy_score
 from sklearn.metrics import precision_recall_curve, average_precision_score
 from sklearn.metrics import roc_auc_score, roc_curve
-
+from sklearn.metrics import balanced_accuracy_score, precision_score, recall_score
 
 def test(loader, model, loss_fn, logger, phase, device='cuda'):
     model.eval()
@@ -37,11 +36,14 @@ def test(loader, model, loss_fn, logger, phase, device='cuda'):
 
     accuracy = running_corrects / len(loader.dataset)
     'y_true, y_pred'
-    balanced_acc = balanced_accuracy_score(y_true=trues, y_pred=y_pred)
+    b_acc = balanced_accuracy_score(y_true=trues, y_pred=y_pred)
     loss = running_loss / len(loader.dataset)
     logger.info('[INFO] {} acc, balanced accuracy,  and loss: {}, {}, {}'.format(phase, accuracy, balanced_acc, loss))
-
-    return accuracy, loss, balanced_acc
+    precision = precision_score(trues, y_pred, average='macro', zero_division=0)
+    recall = recall_score(trues, y_pred, average='macro', zero_division=0)
+    
+    # Return exactly 5 items using the correct internal variable names
+    return loss, accuracy, b_acc, precision, recall
 
 
 def test_complete(loader, model, loss_fn, logger, phase, save_path, device='cuda', n_test=0):
