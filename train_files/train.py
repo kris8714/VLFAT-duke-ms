@@ -52,6 +52,11 @@ def train_val(train_config,
     model = model.to(device)
     for epoch in range(init_epoch, train_config['num_epochs']):
         model.train()
+        if VLFAT and train_config['pretrain']:
+            model.feature_extractor_spacial.eval()
+            model.feature_extractor_temporal.eval()
+            model.pos_drop.eval()
+
 
         # loop over dataset
         logger.info('[INFO] Current learning rate at epoch {}: {}'.format(epoch, showLR(optimizer)))

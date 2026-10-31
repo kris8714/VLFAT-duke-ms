@@ -15,27 +15,27 @@
 
 - dataset:
     dataset_name: 'MS'
-    annotation_path_train: 'content/VLFAT-duke-ms/data/jhu_processed_data/jhu_processed_data/train.csv'
-    annotation_path_test: 'content/VLFAT-duke-ms/data/jhu_processed_data/jhu_processed_data/test.csv'
-    annotation_path_val: 'content/VLFAT-duke-ms/data/jhu_processed_data/jhu_processed_data/val.csv'
+    annotation_path_train: '/content/MS_Processed/train.csv'
+    annotation_path_test: '/content/MS_Processed/test.csv'
+    annotation_path_val: '/content/MS_Processed/val.csv'
     shuffle: true
-    num_workers: 2
+    num_workers: 0
     loader_type: 'random_middle'
 
 - train_config:
     train: true    # <--- THE MAGIC SWITCH
-    pretrain: false
+    pretrain: true
     resume: false
     allow_size_mismatch: false
     load_path: '/content/drive/MyDrive/'
     checkpoint: 'Duke_VLFAT_Weights_Fixed.pth'
-    num_epochs: 50  
+    num_epochs: 200  
     batch_size: 2
     use_gpu: true
     init_lr: 0.001
-    max_lr: 0.005
-    min_lr: 0.0001
-    warmup_lr: 0.005
+    max_lr: 0.001
+    min_lr: 0.00001
+    warmup_lr: 0.001
     warmup_steps: -1
     warmup_epochs: 10
     T_mult: 1
@@ -45,7 +45,7 @@
     base_lr_cyclic: 3.0e-15
     optimizer: 'adam'
     scheduler: 'cosine_with_warmup'
-    step_coeff: 8
+    step_coeff: 25
     momentum: 0.9
     weight_decay: 0.02
     weight_decay_end: 'none'

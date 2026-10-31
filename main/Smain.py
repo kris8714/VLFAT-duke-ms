@@ -78,6 +78,16 @@ def main(config_path):
         model = utils.load_model(check_point_path, model, allow_size_mismatch=train_config['allow_size_mismatch'])
         logger.info('[INFO] The checkpoint is loaded from {} ...'.format(check_point_path))
 
+        # =========================================================
+        # TRUE LINEAR PROBE: Duke VLFAT -> MS vs Normal
+        # =========================================================
+        if train_config['train'] and train_config['pretrain'] and VLFAT:
+            for param in model.parameters():
+                param.requires_grad = False
+            model.cls_head[1].reset_parameters()
+            for param in model.cls_head[1].parameters():
+                param.requires_grad = True
+
     logger.info('[INFO] training config ... \n {} \n\n'.format(config))
 
     model = model.to(device)
