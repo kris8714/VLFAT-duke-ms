@@ -92,6 +92,20 @@ def main(config_path):
 
     model = model.to(device)
     if train_config['train']:
+
+        from train_files.experiment_utils import probe_batch_size
+        start_bs = train_config.get('batch_size', 16)
+        chosen_bs = probe_batch_size(model, loss_fn, device, start_bs=start_bs)
+        if chosen_bs != train_config.get('batch_size'):
+            train_config['batch_size'] = chosen_bs
+            train_loader = torch.utils.data.DataLoader(
+                train_loader.dataset,
+                batch_size=chosen_bs,
+                shuffle=True,
+                num_workers=train_loader.num_workers,
+                pin_memory=True,
+            )
+
         train_val(train_config, logger, model, optimizer, loss_fn, train_loader, val_loader, scheduler, ckpt_saver,
                   init_epoch, device, VLFAT)
     else:

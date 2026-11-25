@@ -107,7 +107,7 @@ class CheckpointSaver:
         #     shutil.copyfile(checkpoint_fp, best_stage_fp)
 
     def set_best_from_ckpt(self, ckpt_dict):
-        self.current_best = ckpt_dict['best_prec']
+        self.current_best = ckpt_dict.get('best_prec', 0.0)
         self.best_for_stage = ckpt_dict.get('best_prec_per_stage', None)
 
 
@@ -148,8 +148,9 @@ def load_model(load_path, model, optimizer=None, allow_size_mismatch=False):
     # -- copy loaded state into current model and, optionally, optimizer
     model.load_state_dict(loaded_state_dict, strict=not allow_size_mismatch)
     if optimizer is not None:
-        optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-        return model, optimizer, checkpoint['epoch_idx'], checkpoint
+        if 'optimizer_state_dict' in checkpoint and checkpoint['optimizer_state_dict'] is not None:
+            optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        return model, optimizer, checkpoint.get('epoch_idx', 0), checkpoint
     return model
 
 
